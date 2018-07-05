@@ -23,14 +23,7 @@
         </a>
       </div>
       <div class="sidebar-wrapper">
-        <ul class="nav">
-          <li class="nav-item active  ">
-            <a class="nav-link" href="./dashboard.html">
-              <i class="material-icons">dashboard</i>
-              <p>Dashboard</p>
-            </a>
-          </li>
-        </ul>
+        @include('master.sidebar')
       </div>
     </div>
     <div class="main-panel">
@@ -45,9 +38,7 @@
       <!-- End Navbar -->
       <div class="content">
         <div class="container-fluid">
-          <div class="row">
-            
-          </div>
+        @yield('content')
         </div>
       </div>
       <footer class="footer">

@@ -11,6 +11,11 @@
 |
 */
 
-Route::get('/', function () {
-    return view('master.index');
-});
+// Route::get('/', function () {
+//     return view('master.index');
+// });
+Route::get('/', 'Web\DashboardController@index')->name('dashboard');
+Route::get('/categories', 'Web\CategoriesController@index')->name('category');
+Route::get('/product', 'Web\ProductController@index')->name('product');
+
+
