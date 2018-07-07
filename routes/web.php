@@ -22,6 +22,12 @@ Route::group(['prefix' => 'categories'], function () {
     Route::delete('/delete', 'Web\CategoriesController@delete')->name('category.delete');
     Route::put('/update', 'Web\CategoriesController@update')->name('category.update');
 });
-Route::get('/product', 'Web\ProductController@index')->name('product');
+Route::group(['prefix' => 'product'], function () {
+    Route::get('/', 'Web\ProductController@index')->name('product');
+    Route::post('/save', 'Web\ProductController@save')->name('product.save');
+    Route::post('/list', 'Web\ProductController@list')->name('product.list');
+    Route::delete('/delete', 'Web\ProductController@delete')->name('product.delete');
+    Route::put('/update', 'Web\ProductController@update')->name('product.update');
+});
 
 
