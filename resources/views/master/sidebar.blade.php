@@ -8,4 +8,10 @@
     <li>
         <a href="{{ route('product') }}" class="waves-effect"><i class="fa fa-table fa-fw" aria-hidden="true"></i>Daftar Produk</a>
     </li>
+    <li>
+        <a href="{{ route('role') }}" class="waves-effect"><i class="fa fa-table fa-fw" aria-hidden="true"></i>Hak Akses</a>
+    </li>
+    <!-- <li>
+        <a href="{{ route('role') }}" class="waves-effect"><i class="fa fa-table fa-fw" aria-hidden="true"></i>Daftar Pengguna</a>
+    </li> -->
 </ul>

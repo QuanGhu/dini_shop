@@ -29,5 +29,12 @@ Route::group(['prefix' => 'product'], function () {
     Route::delete('/delete', 'Web\ProductController@delete')->name('product.delete');
     Route::put('/update', 'Web\ProductController@update')->name('product.update');
 });
+Route::group(['prefix' => 'role'], function () {
+    Route::get('/', 'Web\RoleController@index')->name('role');
+    Route::post('/save', 'Web\RoleController@save')->name('role.save');
+    Route::post('/list', 'Web\RoleController@list')->name('role.list');
+    Route::delete('/delete', 'Web\RoleController@delete')->name('role.delete');
+    Route::put('/update', 'Web\RoleController@update')->name('role.update');
+});
 
 
