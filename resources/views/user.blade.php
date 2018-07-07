@@ -8,7 +8,11 @@
                 <table class="table table-bordered" id="dataTable">
                     <thead class="text-primary">
                         <th>No</th>
-                        <th>Nama Hak Akses</th>
+                        <th>Email</th>
+                        <th>Nama Lengkap</th>
+                        <th>Hak Akses</th>
+                        <th>Alamat</th>
+                        <th>Status</th>
                         <th></th>
                     </thead>
                     <tbody>
@@ -30,8 +34,20 @@
       <div class="modal-body">
         {!! Form::open(['class' => 'validate', 'id' => 'form-add']) !!}
             <div class="form-group">
-                <label for="email">Nama Hak Akses </label>
-                {{ Form::text('name', NULL ,['class' => 'form-control']) }}
+                <label for="email">Email </label>
+                {{ Form::text('email', NULL ,['class' => 'form-control']) }}
+            </div>
+            <div class="form-group">
+                <label for="email">Nama Lengkap </label>
+                {{ Form::text('fullname', NULL ,['class' => 'form-control']) }}
+            </div>
+            <div class="form-group">
+                <label for="email">Alamat</label>
+                {{ Form::textarea('address', NULL ,['class' => 'form-control']) }}
+            </div>
+            <div class="form-group">
+                <label for="email">Hak Akses</label>
+                {{ Form::select('role_id', $role, null, ['placeholder' => 'Pilih Hak Akses', 'class' => 'form-control']) }}
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
         {!! Form::close() !!}
@@ -50,9 +66,21 @@
       <div class="modal-body">
         {!! Form::open(['class' => 'validate', 'id' => 'form-edit']) !!}
             <div class="form-group">
-                <label for="email">Nama Hak Akses </label>
+                <label for="email">Email </label>
                 {{ Form::hidden('id', NULL ,['class' => 'form-control', 'id' => 'id']) }}
-                {{ Form::text('name', NULL ,['class' => 'form-control', 'id' => 'edit_name']) }}
+                {{ Form::text('email', NULL ,['class' => 'form-control', 'id' => 'edit_email']) }}
+            </div>
+            <div class="form-group">
+                <label for="email">Nama Lengkap </label>
+                {{ Form::text('fullname', NULL ,['class' => 'form-control', 'id' => 'edit_fullname']) }}
+            </div>
+            <div class="form-group">
+                <label for="email">Alamat</label>
+                {{ Form::textarea('address', NULL ,['class' => 'form-control', 'id' => 'edit_address']) }}
+            </div>
+            <div class="form-group">
+                <label for="email">Hak Akses</label>
+                {{ Form::select('role_id', $role, null, ['placeholder' => 'Pilih Hak Akses', 'class' => 'form-control', 'id' => 'edit_role']) }}
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
         {!! Form::close() !!}
@@ -72,13 +100,17 @@
                     searching: true,
                     autoWidth: false,
                     ajax: {
-                            url :'{{ route('role.list') }}',
+                            url :'{{ route('users.list') }}',
                             data: { '_token' : '{{csrf_token() }}'},
                             type: 'POST',
                     },
                     columns: [
                         { data: 'DT_Row_Index', orderable: false, searchable: false, "width": "30px"},
-                        { data: 'name', name: 'name' },
+                        { data: 'email', name: 'email' },
+                        { data: 'fullname', name: 'fullname' },
+                        { data: 'role', name: 'role' },
+                        { data: 'address', name: 'address' },
+                        { data: 'status', name: 'status' },
                         { data: 'action', name: 'action', "width": "390px" },
                     ]
                 });
@@ -91,15 +123,28 @@
 
                     if($(this).hasClass('edit')) {
                         $('input#id').val(data.id);
-                        $('input#edit_name').val(data.name);
+                        $('#edit_email').val(data.email);
+                        $('#edit_fullname').val(data.fullname);
+                        $('#edit_role').val(data.role_id);
+                        $('#edit_address').val(data.address);
                         setFormEdit();
                     }
                 });
         });
         $('#form-add').validate({
 	        rules: {
-	            name: {
-	                required: true
+	            email: {
+                    required: true,
+                    email: true
+                },
+                fullname : {
+                    required : true
+                },
+                role_id: {
+                    required : true
+                },
+                address : {
+                    required : true
                 }
 	        },
 	        submitHandler: function (form,e) {
@@ -109,7 +154,7 @@
 	                    headers: {
 	                        'X-CSRF-Token': $('input[name="_token"]').val()
 	                    },
-	                    url: "{{ route('role.save') }}",
+	                    url: "{{ route('users.save') }}",
 	                    data: $('#form-add').serialize(),
 	                    dataType: 'JSON',
 	                    cache: false,
@@ -137,8 +182,18 @@
 
         $('#form-edit').validate({
 	        rules: {
-	            name: {
-	                required: true
+	            email: {
+                    required: true,
+                    email: true
+                },
+                fullname : {
+                    required : true
+                },
+                role_id: {
+                    required : true
+                },
+                address : {
+                    required : true
                 }
 	        },
 	        submitHandler: function (form,e) {
@@ -148,7 +203,7 @@
 	                    headers: {
 	                        'X-CSRF-Token': $('input[name="_token"]').val()
 	                    },
-	                    url: "{{ route('role.update') }}",
+	                    url: "{{ route('users.update') }}",
 	                    data: $('#form-edit').serialize(),
 	                    dataType: 'JSON',
 	                    cache: false,
