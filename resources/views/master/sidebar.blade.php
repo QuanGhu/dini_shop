@@ -1,20 +1,11 @@
-<ul class="nav">
-    <li class="nav-item">
-        <a class="nav-link" href="{{ route('dashboard') }}">
-            <i class="material-icons">dashboard</i>
-            <p>Dashboard</p>
-        </a>
+<ul class="nav" id="side-menu">
+    <li style="padding: 70px 0 0;">
+        <a href="{{ route('dashboard') }}" class="waves-effect"><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>Dashboard</a>
     </li>
-    <li class="nav-item">
-        <a class="nav-link" href="{{ route('category') }}">
-            <i class="material-icons">bookmarks</i>
-            <p>Categories</p>
-        </a>
+    <li>
+        <a href="{{ route('category') }}" class="waves-effect"><i class="fa fa-user fa-fw" aria-hidden="true"></i>Kategori Product</a>
     </li>
-    <li class="nav-item">
-        <a class="nav-link" href="{{ route('product') }}">
-            <i class="material-icons">redeem</i>
-            <p>Product</p>
-        </a>
+    <li>
+        <a href="{{ route('product') }}" class="waves-effect"><i class="fa fa-table fa-fw" aria-hidden="true"></i>Daftar Produk</a>
     </li>
 </ul>
