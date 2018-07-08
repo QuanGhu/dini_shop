@@ -65,4 +65,21 @@ class LoginController extends Controller
 
         return redirect()->route('login');
     }
+
+    public function loginForMobile(Request $request)
+    {
+        try {
+            if(Auth::attempt(['email' => $request->email,'password' => $request->password,'role_id' => 3]))
+            {
+                $user = Auth::user();
+                $token = $user->createToken('MyApp')->accessToken;
+
+                return response()->json(['success'=>True, 'token' => 'Bearer '.$token], 200);
+            } else {
+                return response()->json(['success'=>False, 'message' => 'invalid credentials'], 401);
+            }
+        } catch (\Exception $e) {
+            return response()->json(['success'=>False, 'message' => $e->getMessage()], 400);
+        }
+    }
 }
