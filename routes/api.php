@@ -17,9 +17,26 @@ use Illuminate\Http\Request;
 //     return $request->user();
 // });
 
-Route::get('/test' , 'API\TestController@test');
 Route::post('/login', 'Auth\LoginController@loginForMobile');
+Route::post('/register', 'Auth\RegisterController@registerNewUser');
+
 
 Route::group(['middleware' => ['auth:api']], function(){
     Route::get('/auth' , 'API\TestController@withAuth');
 });
+
+Route::group(['prefix' => 'product'], function () {
+    Route::get('/list/{id}','API\ProductController@getProductByCategory');
+    Route::get('/detail/{id}','API\ProductController@getProductDetail');
+    Route::group(['middleware' => ['auth:api']], function(){
+        Route::post('/addtocart','API\ProductController@addProductToCart');
+    });
+});
+
+Route::group(['middleware' => ['auth:api']], function(){
+    Route::group(['prefix' => 'cart'], function () {
+        Route::get('/list','API\CartController@getAllData');    
+    });
+});
+
+Route::get('/categories','API\CategoriesController@getAll');
