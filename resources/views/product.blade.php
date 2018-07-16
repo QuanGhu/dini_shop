@@ -65,6 +65,10 @@
                 <label for="email">Stok Produk </label>
                 {{ Form::text('stock', NULL ,['class' => 'form-control']) }}
             </div>
+            <div class="form-group">
+                <label for="pwd">Deskripsi </label>
+                {{ Form::textarea('description', NULL ,['class' => 'form-control']) }}
+            </div>
             <button type="submit" class="btn btn-primary">Submit</button>
         {!! Form::close() !!}
       </div>
@@ -97,6 +101,10 @@
             <div class="form-group">
                 <label for="email">Stok Produk </label>
                 {{ Form::text('stock', NULL ,['class' => 'form-control', 'id' => 'edit_stock']) }}
+            </div>
+            <div class="form-group">
+                <label for="pwd">Deskripsi </label>
+                {{ Form::textarea('description', NULL ,['class' => 'form-control', 'id' => 'edit_description']) }}
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
         {!! Form::close() !!}
@@ -179,6 +187,7 @@
                         $('#edit_price').val(data.price);
                         $('#edit_categories').val(data.categories_id);
                         $('#edit_stock').val(data.stock);
+                        $('#edit_description').val(data.description);
                         setFormEdit();
                     } else {
                         $('input#id').val(data.id);
