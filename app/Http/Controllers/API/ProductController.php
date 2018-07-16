@@ -9,6 +9,7 @@ use App\Models\Cart;
 use App\Http\Resources\Product as ProductResource;
 use Crud;
 use Auth;
+use DB;
 
 class ProductController extends Controller
 {
@@ -38,7 +39,13 @@ class ProductController extends Controller
     public function addProductToCart(Request $request,Cart $cart)
     {
         try {
-
+            $check = Crud::base($cart)->where('product_id', $request->product_id)->where('user_id', Auth::user()->id)->first();
+            if($check)
+            {
+                $this->updateToQtyIfSameProduct($request->product_id);
+                $badge = Cart::where('user_id',Auth::user()->id)->count();
+                return response()->json(['status' => true, 'Message' => 'Product Successfuly add to cart','badge' => $badge]);
+            }
             $data = $request->all();
             $data['user_id'] = Auth::user()->id;
             $save = Crud::save($cart, $data);
@@ -50,5 +57,12 @@ class ProductController extends Controller
         {
             return response()->json(['status' => false, 'message' => $e], 500);
         }
+    }
+
+    public function updateToQtyIfSameProduct($id)
+    {
+        $save = DB::table('cart')->where('product_id',$id)->increment('qty');
+
+        return $save;
     }
 }
