@@ -48,7 +48,7 @@ class CategoriesController extends Controller
         $data = $request->all();
         unset($data['_token']);
         $store = Crud::update($categories, 'id', $request->id, $data);
-        
+
         return $store ? response()->json(['status' => 'success']) : response()->json(['status' => 'false']);
     }
 }

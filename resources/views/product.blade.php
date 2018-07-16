@@ -1,5 +1,23 @@
 @extends('master.index')
 @section('content')
+@if ($errors->any())
+    <div class="alert alert-danger alert-error">
+        <div class="container">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    </div>
+@endif
+@if(Session::has('success'))
+    <div class="alert alert-success">
+        <div class="container">
+            <strong>Success!</strong> {{ Session::get('success') }}
+        </div>
+    </div>
+@endif
 <div class="row">
     <div class="col-md-12">
         <div class="white-box">
@@ -86,6 +104,29 @@
     </div>
   </div>
 </div>
+
+<div class="modal" id="imageModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Add / Change Image</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        {!! Form::open(['class' => 'validate', 'id' => 'form-image', 'enctype' => 'multipart/form-data', 'route' => 'product.upload', 'method' => 'PUT' ]) !!}
+            <div class="form-group">
+                <label for="email">File Image </label>
+                {{ Form::hidden('id', NULL ,['class' => 'form-control', 'id' => 'id']) }}
+                {{ Form::file('image',['class' => 'form-control', 'id' => 'image']) }}
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        {!! Form::close() !!}
+      </div>
+    </div>
+  </div>
+</div>
+
+
 @endsection
 @push('scripts')
 <script type="text/javascript">
@@ -132,13 +173,16 @@
                                 },
                             }
                         });
-                    }else {
+                    }else if($(this).hasClass('edit')) {
                         $('input#id').val(data.id);
                         $('#edit_name').val(data.name);
                         $('#edit_price').val(data.price);
                         $('#edit_categories').val(data.categories_id);
                         $('#edit_stock').val(data.stock);
                         setFormEdit();
+                    } else {
+                        $('input#id').val(data.id);
+                        setFormImage();
                     }
                 });
         });
@@ -242,7 +286,6 @@
 	        }
         });
 
-
         function notification(msg, type)
         {
             $.notify(msg, type);
@@ -275,6 +318,9 @@
         }
         function setFormEdit() {
             $('#editModal').modal('show');
+        }
+        function setFormImage() {
+            $('#imageModal').modal('show');
         }
     </script>
 @endpush

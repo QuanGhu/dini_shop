@@ -25,6 +25,7 @@ Route::group(['middleware' => ['auth']], function(){
         Route::post('/list', 'Web\ProductController@list')->name('product.list');
         Route::delete('/delete', 'Web\ProductController@delete')->name('product.delete');
         Route::put('/update', 'Web\ProductController@update')->name('product.update');
+        Route::put('/upload', 'Web\ProductController@uploadNewImage')->name('product.upload');
     });
     Route::group(['prefix' => 'role'], function () {
         Route::get('/', 'Web\RoleController@index')->name('role');
