@@ -21,7 +21,8 @@ class Product extends JsonResource
             'stock' => $this->stock,
             'image' => asset("storage/product/".$this->image),
             'status' => $this->status,
-            'category' => new Categories($this->category)
+            'category' => new Categories($this->category),
+            'description' => $this->description
         ];
     }
 }
