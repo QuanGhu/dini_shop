@@ -23,4 +23,15 @@ class CartController extends Controller
             return response()->json(['status' => false, 'message' => $e], 500);
         }
     }
+
+    public function removeItemFromCart(Request $request, Cart $cart)
+    {
+        try {
+            $store = Crud::delete($cart, 'id', $request->id);
+            return $store ? response()->json(['status' => true]) : response()->json(['status' => false]);
+        } catch (Exception $e)
+        {
+            return response()->json(['status' => false, 'message' => $e], 500);
+        }
+    }
 }

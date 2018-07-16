@@ -36,6 +36,7 @@ Route::group(['prefix' => 'product'], function () {
 Route::group(['middleware' => ['auth:api']], function(){
     Route::group(['prefix' => 'cart'], function () {
         Route::get('/list','API\CartController@getAllData');    
+        Route::delete('/remove','API\CartController@removeItemFromCart');    
     });
 });
 
