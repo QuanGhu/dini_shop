@@ -19,7 +19,7 @@ class Product extends JsonResource
             'name' => $this->name,
             'price' => 'Rp '.$this->price,
             'stock' => $this->stock,
-            'image' => asset("storage/public/".$this->image),
+            'image' => asset("storage/product/".$this->image),
             'status' => $this->status,
             'category' => new Categories($this->category)
         ];
