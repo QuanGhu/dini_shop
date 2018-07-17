@@ -41,6 +41,10 @@ Route::group(['middleware' => ['auth:api']], function(){
     Route::group(['prefix' => 'profile'], function () {
         Route::get('/','API\UserController@getMyProfileData');      
     });
+
+    Route::group(['prefix' => 'order'], function () {
+        Route::get('/create','API\OrderController@createOrder');      
+    });
 });
 
 Route::get('/categories','API\CategoriesController@getAll');
