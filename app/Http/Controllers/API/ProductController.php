@@ -36,18 +36,22 @@ class ProductController extends Controller
         }
     }
 
-    public function addProductToCart(Request $request,Cart $cart)
+    public function addProductToCart(Request $request,Cart $cart, Product $product)
     {
         try {
             $check = Crud::base($cart)->where('product_id', $request->product_id)->where('user_id', Auth::user()->id)->first();
             if($check)
             {
-                $this->updateToQtyIfSameProduct($request->product_id);
+                $getProduct = Crud::getSingleData($product, 'id', $request->product_id);
+                $this->updateToQtyIfSameProduct($getProduct);
                 $badge = Cart::where('user_id',Auth::user()->id)->count();
                 return response()->json(['status' => true, 'Message' => 'Product Successfuly add to cart','badge' => $badge]);
             }
             $data = $request->all();
+            $getProduct = Crud::getSingleData($product, 'id', $request->product_id);
+            $totalPrice = ($request->qty * $getProduct->price);
             $data['user_id'] = Auth::user()->id;
+            $data['total_price'] = $totalPrice;
             $save = Crud::save($cart, $data);
             $badge = Cart::where('user_id',Auth::user()->id)->count();
             return $save ? response()->json(['status' => true, 'Message' => 'Product Successfuly add to cart','badge' => $badge])
@@ -59,10 +63,13 @@ class ProductController extends Controller
         }
     }
 
-    public function updateToQtyIfSameProduct($id)
+    public function updateToQtyIfSameProduct($product)
     {
-        $save = DB::table('cart')->where('product_id',$id)->increment('qty');
-
-        return $save;
+        $save = DB::table('cart')->where('product_id',$product->id)->increment('qty');
+        $qtyNow = DB::table('cart')->where('product_id', $product->id)->first();
+        $totalPrice = $qtyNow->qty * $product->price;
+        $store = DB::table('cart')->where('product_id',$product->id)->update(['total_price' => $totalPrice]);
+        
+        return $store;
     }
 }
