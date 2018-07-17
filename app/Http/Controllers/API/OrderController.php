@@ -27,9 +27,17 @@ class OrderController extends Controller
                 $data['total_price'] = $cartItem->qty * $cartItem->product->price;
                 $store = Crud::save($order, $data);
             }
-            
-            return $store ? response()->json(['status' => true, 'Message' => 'Order Complete'])
-            : response()->json(['status' => false, 'message' => 'Order Cannot Complete'], 500);
+
+            if($store)
+            {
+                $delete = Crud::delete($cart,'user_id',Auth::user()->id);
+
+                return response()->json(['status' => true, 'Message' => 'Order Complete']);
+
+            } else {
+                return response()->json(['status' => false, 'message' => 'Order Cannot Complete'], 500);
+            }
+
 
         } catch(Exception $e)
         {
