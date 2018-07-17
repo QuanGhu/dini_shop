@@ -18,7 +18,7 @@ class Cart extends JsonResource
             'id' => $this->id,
             'qty' => $this->qty,
             'product' => new Product($this->product),
-            'total_price_per_product' => 'Rp '.$this->qty * $this->product->price
+            'total_price' => 'Rp '.$this->total_price
         ];
     }
 }

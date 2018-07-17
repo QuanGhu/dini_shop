@@ -16,7 +16,8 @@ class CartController extends Controller
         try {
             $data = Crud::getWhere($cart,'user_id',Auth::user()->id);
             return (CartResource::collection($data))->additional([
-                'status' => true, 'cart_badge' => Cart::where('user_id',Auth::user()->id)->count()
+                'status' => true, 'cart_badge' => Cart::where('user_id',Auth::user()->id)->count(),
+                'total_price_cart' => Cart::where('user_id', Auth::user()->id)->sum('total_price')
             ]);
         } catch (Exception $e)
         {
