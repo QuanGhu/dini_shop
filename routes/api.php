@@ -38,6 +38,9 @@ Route::group(['middleware' => ['auth:api']], function(){
         Route::get('/list','API\CartController@getAllData');    
         Route::delete('/remove','API\CartController@removeItemFromCart');    
     });
+    Route::group(['prefix' => 'profile'], function () {
+        Route::get('/','API\UserController@getMyProfileData');      
+    });
 });
 
 Route::get('/categories','API\CategoriesController@getAll');
