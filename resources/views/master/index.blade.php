@@ -29,11 +29,8 @@
             <div class="navbar-header">
                 <div class="top-left-part">
                     <a class="logo" href="index.html">
-                      <b>
-                        <img src="{{ asset('assets/images/admin-logo.png') }}" alt="home" class="dark-logo" /><!--This is light logo icon--><img src="{{ asset('assets/images/admin-logo-dark.png') }}" alt="home" class="light-logo" />
-                      </b>
-                      <span class="hidden-xs">
-                        <img src="{{ asset('assets/images/admin-text.png') }}" alt="home" class="dark-logo" /><!--This is light logo text--><img src="{{ asset('assets/images/admin-text-dark.png') }}" alt="home" class="light-logo" />
+                      <span class="hidden-xs" style="color: #000; text-align: center">
+                        Fashion Kid
                       </span> 
                     </a>
                 </div>
