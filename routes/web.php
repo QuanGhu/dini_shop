@@ -41,6 +41,10 @@ Route::group(['middleware' => ['auth']], function(){
         Route::delete('/delete', 'Web\UserController@delete')->name('users.delete');
         Route::put('/update', 'Web\UserController@update')->name('users.update');
     });
+    Route::group(['prefix' => 'order'], function () {
+        Route::get('/', 'Web\OrderController@index')->name('order');
+        Route::post('/list', 'Web\OrderController@list')->name('order.list');
+    });
 });
 
 // Route::

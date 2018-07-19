@@ -32,4 +32,9 @@ class User extends Authenticatable
     {
         return $this->belongsTo('App\Models\Role','role_id');
     }
+
+    public function orderMaster()
+    {
+        return $this->hasMany('App\Models\OrderMaster','user_id');
+    }
 }

@@ -11,8 +11,8 @@ class OrderMaster extends Model
         'order_number', 'user_id','total_order','fullname','address'
     ];
 
-    // public function category()
-    // {
-    //     return $this->belongsTo('App\Models\Categories','categories_id');
-    // }
+    public function user()
+    {
+        return $this->belongsTo('App\Models\User','user_id');
+    }
 }
