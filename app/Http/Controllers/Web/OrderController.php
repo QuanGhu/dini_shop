@@ -31,6 +31,8 @@ class OrderController extends Controller
             };
         })->editColumn('customer_email', function ($model) {
             return $model->user->email;
+        })->editColumn('order_number', function ($model) {
+            return $model->createOrderNumber();
         })->addIndexColumn()->make(true);
     }
 

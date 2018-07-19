@@ -16,13 +16,13 @@ class OrderMaster extends Model
         return $this->belongsTo('App\Models\User','user_id');
     }
 
-    public function getOrderNumberAttribute($value)
+    public function createOrderNumber()
     {
         $defautlLength = 6;
-        $getValueLength = strlen($value);
+        $getValueLength = strlen($this->order_number);
         $createZeroLength = $defautlLength - $getValueLength;
         $zero = str_repeat("0", $createZeroLength);
-        $orderNumber = 'A'.$zero.$value;
+        $orderNumber = 'A'.$zero.$this->order_number;
         return $orderNumber;
     }
 }

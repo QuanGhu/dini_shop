@@ -23,7 +23,7 @@
         <div class="white-box">
             <div class="row">
                 <div class="col-md-6">
-                    <b><p> Nomor Order : {{$data->order_number}}</p></b>
+                    <b><p> Nomor Order : {{$data->createOrderNumber()}}</p></b>
                     <p>Nama Pemesan : {{$data->fullname}}</p>
                     <p>Alamat : {{$data->address}}</p>
                     <p>Email Pemesan : {{$data->user->email}}</p>
