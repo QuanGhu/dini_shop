@@ -19,7 +19,8 @@ class UserController extends Controller
     public function index()
     {
         $role = $this->getAllRoles();
-        return view('user')->with('role', $role);
+        $title = 'Daftar Pengguna';
+        return view('user')->with('role', $role)->with('title',$title);
     }
 
     public function getAllRoles()

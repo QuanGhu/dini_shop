@@ -12,7 +12,8 @@ class CategoriesController extends Controller
 {
     public function index()
     {
-        return view('categories');
+        $title = 'Daftar Kategori';
+        return view('categories')->with('title',$title);
     }
 
     public function save(Request $request, Categories $categories)

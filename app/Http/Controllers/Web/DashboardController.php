@@ -10,6 +10,7 @@ class DashboardController extends Controller
     
     public function index()
     {
-        return view('master.index');
+        $title = 'Halaman Utama';
+        return view('master.index')->with('title',$title);
     }
 }

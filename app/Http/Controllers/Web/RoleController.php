@@ -12,7 +12,8 @@ class RoleController extends Controller
 {
     public function index()
     {
-        return view('role');
+        $title = 'Daftar Hak Akses';
+        return view('role')->with('title', $title);
     }
 
     public function save(Request $request, Role $role)

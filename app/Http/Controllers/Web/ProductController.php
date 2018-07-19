@@ -23,7 +23,8 @@ class ProductController extends Controller
     public function index()
     {
         $categories = $this->getAllCategories();
-        return view('product')->with('categories', $categories);
+        $title = 'Daftar Produk';
+        return view('product')->with('categories', $categories)->with('title',$title);
     }
 
     public function getAllCategories()

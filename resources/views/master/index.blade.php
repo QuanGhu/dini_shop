@@ -44,7 +44,7 @@
                         </form>
                     </li>
                     <li>
-                        <a class="profile-pic" href="#"> <img src="{{ asset('assets/images/users/varun.jpg') }}" alt="user-img" width="36" class="img-circle"><b class="hidden-xs">Steave</b></a>
+                        <a class="profile-pic" href="#"><b class="hidden-xs">{{ Auth::user()->fullname }}</b></a>
                     </li>
                 </ul>
             </div>
@@ -61,7 +61,7 @@
             <div class="container-fluid">
                 <div class="row bg-title">
                     <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                        <h4 class="page-title">Blank Page</h4> 
+                        <h4 class="page-title">{{$title}}</h4> 
                     </div>
                     <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
                         <ol class="breadcrumb">

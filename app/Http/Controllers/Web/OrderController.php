@@ -9,12 +9,14 @@ use App\Models\Order;
 use Crud;
 use Yajra\Datatables\Datatables;
 use Session;
+use Mail;
 
 class OrderController extends Controller
 {
     public function index()
     {
-        return view('order');
+        $title = 'Daftar Pemesanan';
+        return view('order')->with('title',$title);
     }
 
     public function list(OrderMaster $ordermaster)
@@ -22,9 +24,11 @@ class OrderController extends Controller
 
         $data = Crud::getAll($ordermaster);
         return Datatables::of($data)->addColumn('action', function ($model) {
-            return '
-                <a href="'.route('order.detail', $model->id).'" class="btn btn-info btn-cons btn-sm btn-small edit">Proses</a>
-            ';
+            if($model->status === 'Belum Di Proses') {
+                return ' <a href="'.route('order.detail', $model->id).'" class="btn btn-info btn-cons btn-sm btn-small edit">Proses</a>';
+            } else {
+                return '';
+            };
         })->editColumn('customer_email', function ($model) {
             return $model->user->email;
         })->addIndexColumn()->make(true);
@@ -43,14 +47,25 @@ class OrderController extends Controller
     {
         $data = OrderMaster::findOrFail($id);
         $orders = Order::where('order_master_id', $id)->get();
-        return view('orderdetail')->with('data', $data)->with('orders',$orders);
+        $title = 'Detail Pemesanan';
+        return view('orderdetail')->with('data', $data)->with('orders',$orders)->with('title',$title);
     }
 
     public function processOrder($id)
     {
         $data = OrderMaster::where('id', $id)->update(['status' => 'Sudah Di Proses']);
-
-        Session::flash('success','Order Telah Di Proses');
-        return redirect()->route('order');
+        $getData = OrderMaster::findOrFail($id);
+        if($data) {
+            $email = $getData->user->email;
+            Mail::send('email.order', ['data' => $getData], function($message) use ($email) {
+                $message->to($email,'Order Telah Di Proses')
+                        ->subject('Pemberitahuan Order Anda Telah Di Proses');
+            });
+            Session::flash('success','Order Telah Di Proses');
+            return redirect()->route('order');
+        } else {
+            Session::flash('success','Order Tidak Bisa Di Proses');
+            return redirect()->route('order');
+        }
     }
 }
