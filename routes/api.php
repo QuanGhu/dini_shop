@@ -44,6 +44,7 @@ Route::group(['middleware' => ['auth:api']], function(){
 
     Route::group(['prefix' => 'order'], function () {
         Route::get('/create','API\OrderController@createOrder');      
+        Route::get('/history','API\OrderController@getOrderHistory');      
     });
 });
 

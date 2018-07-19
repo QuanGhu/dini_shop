@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Order;
 use App\Models\OrderMaster;
 use App\Models\Cart;
+use App\Http\Resources\OrderMaster as OrderMasterResource;
 use Crud;
 use Auth;
 
@@ -93,6 +94,18 @@ class OrderController extends Controller
 
             return $data;
         } catch (Exception $e)
+        {
+            return response()->json(['status' => false, 'message' => $e], 500);
+        }
+    }
+
+    public function getOrderHistory(OrderMaster $ordermaster) {
+        try {
+            $data = Crud::getWhere($ordermaster, 'user_id', Auth::user()->id);
+            return (OrderMasterResource::collection($data))->additional([
+                'status' => true
+            ]);
+        }catch(Exception $e)
         {
             return response()->json(['status' => false, 'message' => $e], 500);
         }
