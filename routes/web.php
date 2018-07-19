@@ -45,6 +45,7 @@ Route::group(['middleware' => ['auth']], function(){
         Route::get('/', 'Web\OrderController@index')->name('order');
         Route::post('/list', 'Web\OrderController@list')->name('order.list');
         Route::get('/detail/{id}', 'Web\OrderController@detail')->name('order.detail');
+        Route::get('/proses/{id}', 'Web\OrderController@processOrder')->name('order.process');
     });
 });
 

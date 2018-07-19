@@ -8,6 +8,7 @@ use App\Models\OrderMaster;
 use App\Models\Order;
 use Crud;
 use Yajra\Datatables\Datatables;
+use Session;
 
 class OrderController extends Controller
 {
@@ -43,5 +44,13 @@ class OrderController extends Controller
         $data = OrderMaster::findOrFail($id);
         $orders = Order::where('order_master_id', $id)->get();
         return view('orderdetail')->with('data', $data)->with('orders',$orders);
+    }
+
+    public function processOrder($id)
+    {
+        $data = OrderMaster::where('id', $id)->update(['status' => 'Sudah Di Proses']);
+
+        Session::flash('success','Order Telah Di Proses');
+        return redirect()->route('order');
     }
 }
