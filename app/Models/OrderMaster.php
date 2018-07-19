@@ -15,4 +15,14 @@ class OrderMaster extends Model
     {
         return $this->belongsTo('App\Models\User','user_id');
     }
+
+    public function getOrderNumberAttribute($value)
+    {
+        $defautlLength = 6;
+        $getValueLength = strlen($value);
+        $createZeroLength = $defautlLength - $getValueLength;
+        $zero = str_repeat("0", $createZeroLength);
+        $orderNumber = 'A'.$zero.$value;
+        return $orderNumber;
+    }
 }
