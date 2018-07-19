@@ -13,10 +13,10 @@ use Auth;
 
 class OrderController extends Controller
 {
-    public function createOrder(Cart $cart, Order $order, OrderMaster $ordermaster)
+    public function createOrder(Cart $cart, Order $order, OrderMaster $ordermaster, Request $request)
     {
         try {
-            $masterOrder = $this->createMasterOrder($ordermaster, $cart);
+            $masterOrder = $this->createMasterOrder($ordermaster, $cart, $request);
             $cartItems = $this->getItemsFromCart($cart);
             foreach($cartItems as $cartItem)
             {
@@ -46,14 +46,14 @@ class OrderController extends Controller
         }
     }
 
-    public function createMasterOrder(OrderMaster $ordermaster, Cart $cart)
+    public function createMasterOrder(OrderMaster $ordermaster, Cart $cart, Request $request)
     {
         try {
             $data['order_number'] = $this->createOrderNumber($ordermaster);
             $data['user_id'] = Auth::user()->id;
             $data['total_order'] = $this->getTotalPriceFromCart($cart);
-            $data['fullname'] = Auth::user()->fullname;
-            $data['address'] = Auth::user()->address;
+            $data['fullname'] = $request->name;
+            $data['address'] = $request->address;
             $store = Crud::save($ordermaster, $data);
 
             return $store;
