@@ -16,7 +16,7 @@ class OrderMaster extends JsonResource
     {
         return [
             'id' => $this->id,
-            'order_number' => $this->order_number,
+            'order_number' => $this->createOrderNumber(),
             'total_order' => 'Rp '.$this->total_order,
             'fullname' => $this->fullname,
             'address' => $this->address,
