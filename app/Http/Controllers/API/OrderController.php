@@ -118,9 +118,9 @@ class OrderController extends Controller
     {
         try {
 
-            $getNowQty = CRUD::base($product)->where('id', $data->id)->first();
+            $getNowQty = CRUD::base($product)->where('id', $data->product->id)->first();
             $resultQty = $getNowQty->qty - $data->qty;
-            $update = CRUD::base($product)->where('id', $data->id)->update(['qty' => $resultQty]);
+            $update = CRUD::base($product)->where('id', $data->product->id)->update(['qty' => $resultQty]);
             
             return $update ? $update : false;
 
