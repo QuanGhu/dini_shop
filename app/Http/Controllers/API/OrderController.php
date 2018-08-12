@@ -7,13 +7,14 @@ use App\Http\Controllers\Controller;
 use App\Models\Order;
 use App\Models\OrderMaster;
 use App\Models\Cart;
+use App\Models\Product;
 use App\Http\Resources\OrderMaster as OrderMasterResource;
 use Crud;
 use Auth;
 
 class OrderController extends Controller
 {
-    public function createOrder(Cart $cart, Order $order, OrderMaster $ordermaster, Request $request)
+    public function createOrder(Cart $cart, Order $order, OrderMaster $ordermaster, Product $product,Request $request)
     {
         try {
             $masterOrder = $this->createMasterOrder($ordermaster, $cart, $request);
@@ -27,6 +28,8 @@ class OrderController extends Controller
                 $data['order_master_id'] = $masterOrder->id;
                 $data['total_price'] = $cartItem->qty * $cartItem->product->price;
                 $store = Crud::save($order, $data);
+
+                $this->descreaseQtyProduct($product, $cartItem);
             }
 
             if($store)
@@ -106,6 +109,22 @@ class OrderController extends Controller
                 'status' => true
             ]);
         }catch(Exception $e)
+        {
+            return response()->json(['status' => false, 'message' => $e], 500);
+        }
+    }
+
+    public function descreaseQtyProduct(Product $product, $data)
+    {
+        try {
+
+            $getNowQty = CRUD::base($product)->where('id', $data->id)->first();
+            $resultQty = $getNowQty->qty - $data->qty;
+            $update = CRUD::base($product)->where('id', $data->id)->update(['qty' => $resultQty]);
+            
+            return $update ? $update : false;
+
+        } catch(Exception $e)
         {
             return response()->json(['status' => false, 'message' => $e], 500);
         }
