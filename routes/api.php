@@ -39,7 +39,8 @@ Route::group(['middleware' => ['auth:api']], function(){
         Route::delete('/remove','API\CartController@removeItemFromCart');    
     });
     Route::group(['prefix' => 'profile'], function () {
-        Route::get('/','API\UserController@getMyProfileData');      
+        Route::get('/','API\UserController@getMyProfileData');
+        Route::put('/changepassword', 'API\UserController@changePassword');      
     });
 
     Route::group(['prefix' => 'order'], function () {
