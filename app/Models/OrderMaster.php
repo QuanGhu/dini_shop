@@ -16,6 +16,11 @@ class OrderMaster extends Model
         return $this->belongsTo('App\Models\User','user_id');
     }
 
+    public function order()
+    {
+        return $this->hasMany('App\Models\Order','order_master_id');
+    }
+
     public function createOrderNumber()
     {
         $defautlLength = 6;
