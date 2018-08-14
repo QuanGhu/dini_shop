@@ -8,7 +8,8 @@ class OrderMaster extends Model
 {
     protected $table = 'order_master';
     protected $fillable = [
-        'order_number', 'user_id','total_order','fullname','address'
+        'order_number', 'user_id','total_order','fullname','address',
+        'ongkir','payment_method'
     ];
 
     public function user()

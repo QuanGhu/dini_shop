@@ -55,6 +55,8 @@ class OrderController extends Controller
             $data['order_number'] = $this->createOrderNumber($ordermaster);
             $data['user_id'] = Auth::user()->id;
             $data['total_order'] = $this->getTotalPriceFromCart($cart);
+            $data['ongkir'] = $request->ongkir;
+            $data['payment_method'] = $request->payment_method;
             $data['fullname'] = $request->name;
             $data['address'] = $request->address;
             $store = Crud::save($ordermaster, $data);
