@@ -47,6 +47,11 @@ Route::group(['middleware' => ['auth']], function(){
         Route::get('/detail/{id}', 'Web\OrderController@detail')->name('order.detail');
         Route::get('/proses/{id}', 'Web\OrderController@processOrder')->name('order.process');
     });
+
+    Route::group(['prefix' => 'report'], function () {
+        Route::get('/', 'Web\OrderController@reportByMonthView')->name('order.report');
+        Route::post('/monthly', 'Web\OrderController@getMonthlyReport')->name('order.report.monthly');
+    });
 });
 
 // Route::

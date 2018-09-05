@@ -70,4 +70,19 @@ class OrderController extends Controller
             return redirect()->route('order');
         }
     }
+
+    public function reportByMonthView()
+    {
+        $title = 'Laporan Penjualan';
+        return view('monthly')->with('title',$title);
+    }
+
+    public function getMonthlyReport(Request $request, OrderMaster $orderMaster)
+    {
+        $data = Crud::base($orderMaster)->whereYear('created_at', $request->year)
+                ->whereMonth('created_at', $request->month)->get();
+        
+        return $request->ajax() ? view('ajax.monthly')->with(['orders' => $data])->render()
+            : view('ajax.monthly')->with(['orders' => $data]);
+    }
 }

@@ -11,6 +11,9 @@
     <li>
         <a href="{{ route('order') }}" class="waves-effect"><i class="fa fa-table fa-fw" aria-hidden="true"></i>Daftar Pemesanan</a>
     </li>
+    <li>
+        <a href="{{ route('order.report') }}" class="waves-effect"><i class="fa fa-table fa-fw" aria-hidden="true"></i>Laporan Penjualan</a>
+    </li>
     @if(Auth::user()->role_id == 1)
     <li>
         <a href="{{ route('role') }}" class="waves-effect"><i class="fa fa-table fa-fw" aria-hidden="true"></i>Hak Akses</a>
