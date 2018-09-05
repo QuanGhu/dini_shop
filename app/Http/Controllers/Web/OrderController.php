@@ -80,7 +80,8 @@ class OrderController extends Controller
     public function getMonthlyReport(Request $request, OrderMaster $orderMaster)
     {
         $data = Crud::base($orderMaster)->whereYear('created_at', $request->year)
-                ->whereMonth('created_at', $request->month)->get();
+                ->whereMonth('created_at', $request->month)
+                ->where('status','Sudah Di Proses')->get();
         
         return $request->ajax() ? view('ajax.monthly')->with(['orders' => $data])->render()
             : view('ajax.monthly')->with(['orders' => $data]);
