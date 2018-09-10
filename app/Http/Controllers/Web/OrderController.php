@@ -23,7 +23,11 @@ class OrderController extends Controller
     {
 
         $data = Crud::getAll($ordermaster);
-        return Datatables::of($data)->addColumn('action', function ($model) {
+        return Datatables::of($data)
+        ->addColumn('action', function ($model) {
+            if($model->payment_method === 'transfer') {
+                return ' <a href="#" class="btn btn-success btn-cons btn-sm btn-small">Lihat Bukti Transfer</a>';
+            }
             if($model->status === 'Belum Di Proses') {
                 return ' <a href="'.route('order.detail', $model->id).'" class="btn btn-info btn-cons btn-sm btn-small edit">Proses</a>';
             } else {

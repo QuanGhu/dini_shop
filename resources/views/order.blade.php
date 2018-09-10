@@ -29,6 +29,7 @@
                         <th>Email Customer</th>
                         <th>Nama Pemesan</th>
                         <th>Alamat Pemesan</th>
+                        <th>Metode Pembayaran</th>
                         <th>Status</th>
                         <th></th>
                     </thead>
@@ -63,6 +64,7 @@
                     { data: 'customer_email', name: 'customer_email'},
                     { data: 'fullname', name: 'fullname'},
                     { data: 'address', name: 'address'},
+                    { data: 'payment_method', name: 'payment_method'},
                     { data: 'status', name: 'status'},
                     { data: 'action', name: 'action', "width": "100p" },
                 ]
