@@ -154,6 +154,7 @@ class OrderController extends Controller
     private function storeImage(Request $request) 
     {
         $image = $request->file('attachment');
+        dd($image);
         $fileName = time().'.'.$image->getClientOriginalExtension();
         Storage::disk('public')->put('attachment/'.$fileName, file_get_contents($image), 'public');
         
