@@ -138,7 +138,7 @@ class OrderController extends Controller
         try {
 
             $data = $request->all();
-            dd($data);
+            dd($request);
             $data['attachment'] = $this->storeImage($request);
 
             $update = Crud::update($ordermaster, 'id',$request->id,$data);
