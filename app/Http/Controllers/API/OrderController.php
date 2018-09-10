@@ -11,6 +11,7 @@ use App\Models\Product;
 use App\Http\Resources\OrderMaster as OrderMasterResource;
 use Crud;
 use Auth;
+use Storage;
 
 class OrderController extends Controller
 {
@@ -130,5 +131,32 @@ class OrderController extends Controller
         {
             return response()->json(['status' => false, 'message' => $e], 500);
         }
+    }
+
+    public function getBuktiTransfter(Request $request, OrderMaster $ordermaster)
+    {
+        try {
+
+            $data = $request->all();
+            $data['attachment'] = $this->storeImage($request);
+
+            $update = Crud::update($ordermaster, 'id',$request->id,$data);
+            
+            return $update ? response()->json(['status' => true, 'Message' => 'Upload Success']) 
+            : response()->json(['status' => false, 'Message' => 'Upload Failed']);
+
+        } catch(Exception $e)
+        {
+            return response()->json(['status' => false, 'message' => $e], 500);
+        }
+    }
+
+    private function storeImage(Request $request) 
+    {
+        $image = $request->file('attachment');
+        $fileName = time().'.'.$image->getClientOriginalExtension();
+        Storage::disk('public')->put('attachment/'.$fileName, file_get_contents($image), 'public');
+        
+        return $fileName;
     }
 }
