@@ -46,7 +46,7 @@ Route::group(['middleware' => ['auth:api']], function(){
     Route::group(['prefix' => 'order'], function () {
         Route::post('/create','API\OrderController@createOrder');      
         Route::get('/history','API\OrderController@getOrderHistory');
-        Route::post('/upload','API\OrderController@getBuktiTransfter');          
+        Route::put('/upload','API\OrderController@getBuktiTransfter');          
     });
 });
 
