@@ -138,6 +138,7 @@ class OrderController extends Controller
         try {
 
             $data = $request->all();
+            dd($data);
             $data['attachment'] = $this->storeImage($request);
 
             $update = Crud::update($ordermaster, 'id',$request->id,$data);
@@ -154,7 +155,6 @@ class OrderController extends Controller
     private function storeImage(Request $request) 
     {
         $image = $request->file('attachment');
-        dd($image);
         $fileName = time().'.'.$image->getClientOriginalExtension();
         Storage::disk('public')->put('attachment/'.$fileName, file_get_contents($image), 'public');
         
