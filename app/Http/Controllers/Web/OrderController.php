@@ -27,7 +27,7 @@ class OrderController extends Controller
         ->addColumn('action', function ($model) {
             if($model->status === 'Belum Di Proses') {
                 if($model->payment_method === 'transfer') {
-                    return ' <a href="http://35.198.236.177/storage/attachment/'.$model->attachment.'" class="btn btn-success btn-cons btn-sm btn-small">Lihat Bukti Transfer</a>
+                    return ' <a href="http://35.198.236.177/storage/attachment/'.$model->attachment.'" class="btn btn-success btn-cons btn-sm btn-small" target="__blank">Lihat Bukti Transfer</a>
                         <a href="'.route('order.detail', $model->id).'" class="btn btn-info btn-cons btn-sm btn-small edit">Proses</a>
                     ';
                 }
