@@ -28,10 +28,16 @@
                             <td>{{$data->order_number}}</td>
                             <td>{{$data->fullname}}</td>
                             <td>{{$data->address}}</td>
-                            <td>{{$data->total_order}}</td>
+                            <td>Rp {{ number_format($data->total_order,0,',','.') }}</td>
                         </tr>
                     @endforeach
                 </tbody>
+                <tfoot>
+                    <tr>
+                        <td>Jumlah</td>
+                        <td colspan="4"> Rp {{ number_format($total_order,0,',','.') }}</td>
+                    </tr>
+                </tfoot>
             </table>
         </div>
     </div>

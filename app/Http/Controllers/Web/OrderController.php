@@ -88,8 +88,12 @@ class OrderController extends Controller
         $data = Crud::base($orderMaster)->whereYear('created_at', $request->year)
                 ->whereMonth('created_at', $request->month)
                 ->where('status','Sudah Di Proses')->get();
+            
+        $total_order = $data = Crud::base($orderMaster)->whereYear('created_at', $request->year)
+        ->whereMonth('created_at', $request->month)
+        ->where('status','Sudah Di Proses')->sum('total_order');
         
-        return $request->ajax() ? view('ajax.monthly')->with(['orders' => $data])->render()
+        return $request->ajax() ? view('ajax.monthly')->with(['orders' => $data, 'total_order' => $total_order])->render()
             : view('ajax.monthly')->with(['orders' => $data]);
     }
 }
