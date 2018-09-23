@@ -34,8 +34,8 @@
                 </tbody>
                 <tfoot>
                     <tr>
-                        <td>Jumlah</td>
-                        <td colspan="4"> Rp {{ number_format($total_order,0,',','.') }}</td>
+                        <td colspan="4">Jumlah</td>
+                        <td> Rp {{ number_format($total_order,0,',','.') }}</td>
                     </tr>
                 </tfoot>
             </table>
