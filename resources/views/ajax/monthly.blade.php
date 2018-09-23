@@ -28,7 +28,7 @@
                             <td>{{$data->order_number}}</td>
                             <td>{{$data->fullname}}</td>
                             <td>{{$data->address}}</td>
-                            <td>Rp {{ $data->total_order }}</td>
+                            <td>{{ $data->total_order }}</td>
                         </tr>
                     @endforeach
                 </tbody>
