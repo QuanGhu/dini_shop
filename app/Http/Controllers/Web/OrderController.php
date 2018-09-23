@@ -89,7 +89,7 @@ class OrderController extends Controller
                 ->whereMonth('created_at', $request->month)
                 ->where('status','Sudah Di Proses')->get();
             
-        $total_order = $data = Crud::base($orderMaster)->whereYear('created_at', $request->year)
+        $total_order = Crud::base($orderMaster)->whereYear('created_at', $request->year)
         ->whereMonth('created_at', $request->month)
         ->where('status','Sudah Di Proses')->sum('total_order');
         
