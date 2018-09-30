@@ -89,6 +89,12 @@
                 </tr>
             @endforeach
         </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="4">Jumlah</td>
+                <td> Rp {{ number_format($total_order,0,',','.') }}</td>
+            </tr>
+        </tfoot>
     </table>
 </div>
 
