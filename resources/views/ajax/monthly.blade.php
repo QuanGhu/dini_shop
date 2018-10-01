@@ -15,6 +15,7 @@
                 <thead>
                     <tr>
                         <th>No</th>
+                        <th>Tanggal</th>
                         <th>Order Number</th>
                         <th>Nama Pemesan</th>
                         <th>Alamat Pemesan</th>
@@ -25,6 +26,7 @@
                     @foreach($orders as $key => $data)
                         <tr>
                             <td>{{$key + 1}}</td>
+                            <td>{{$data->created_at->format('d M Y')}}</td>
                             <td>{{$data->order_number}}</td>
                             <td>{{$data->fullname}}</td>
                             <td>{{$data->address}}</td>
@@ -72,6 +74,7 @@
         <thead>
             <tr>
                 <th>No</th>
+                <th>Tanggal</th>
                 <th>Order Number</th>
                 <th>Nama Pemesan</th>
                 <th>Alamat Pemesan</th>
@@ -82,6 +85,7 @@
             @foreach($orders as $key => $data)
                 <tr>
                     <td>{{$key + 1}}</td>
+                    <td>{{$data->created_at->format('d M Y')}}</td>
                     <td>{{$data->order_number}}</td>
                     <td>{{$data->fullname}}</td>
                     <td>{{$data->address}}</td>
